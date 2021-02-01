@@ -1,0 +1,26 @@
+.vs/
+.vscode/
+out/
+/bin/
+/build/
+/build_x86/
+/src/include/
+/include/
+config.cmake
+CMakeSettings.json
+*.obj
+*.sdf
+*.suo
+*.exe
+cpp.hint
+Generated Files/
+*.sln
+*.vcxproj
+*.filters
+*.user
+ipch/
+*.opensdf
+*.patch
+*.aps
+CMakeFiles/
+vcpkg_installed/
