@@ -39,17 +39,21 @@ elseif(OS_LINUX)
   MESSAGE("platform linux not supported !")
 endif()
 
-find_package(unofficial-nana CONFIG REQUIRED)
+find_package(unofficial-nana REQUIRED)
 
 file(GLOB_RECURSE _SRC_FILES "src/*.cpp")
-source_group("Header Files" FILES _SRC_FILES)
+source_group("Header Files" FILES ${_SRC_FILES})
 
 file(GLOB_RECURSE _HEADER_FILES "src/*.h" "src/*.hpp")
-source_group("Source Files" FILES _HEADER_FILES)
+source_group("Source Files" FILES ${_HEADER_FILES})
+
+file(GLOB _RRSOURCE_FILES src/*.rc src/res/*.ico src/res/*.png)
+source_group("Resource Files" FILES ${_RRSOURCE_FILES} resource.h)
 
 add_executable(${PROJECT_NAME} WIN32
-  ${HEADER_FILES}
+  ${_HEADER_FILES}
   ${_SRC_FILES}
+  ${_RRSOURCE_FILES}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
