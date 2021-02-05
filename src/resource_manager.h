@@ -2,50 +2,33 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <filesystem>
 #include <windows.h>
-#ifdef _USE_OPENGL3
-#include <glad/glad.h>
-#else
-#include <GL/GL.h>
-#endif
-
-struct GLTexture_ {
-    int width;
-    int height;
-    GLuint tex;
-};
 
 
-class ResourceManager {
+class resource_manager {
 public:
-    ~ResourceManager();
-    static ResourceManager* get();
+    ~resource_manager();
+    static resource_manager* get();
 protected:
-    ResourceManager() = default;
+    resource_manager() = default;
 
 public:
-    /**
-     * @brief 加载RC图片资源到OpenGL纹理
-     * @author Alex.peng
-     */
-    bool loadResourceImage(int rcId, LPCWSTR rcType, GLTexture_& texture);
     /**
      * @brief 获取RC配置文件
      * @author Alex.peng
      */
-    bool loadResourceData(int rcId, LPCWSTR rcType, std::vector<char>& data);
+    bool release_image_file(int rcId, LPCWSTR rcType, const std::string& filePath);
     /**
-     * @brief 从文件中读取texture
+     * @brief 获取唯一的临时路径
      * @author Alex.peng
      */
-    bool loadTextureFromFile(const std::string& filename, GLTexture_& texture);
-    /**
-     * @brief 接在texture
-     * @author Alex.peng
-     */
-    bool loadTexture(unsigned char* data, int width, int height, GLTexture_& texture);
+    const std::filesystem::path& get_unique_tempdir();
 
+    uintmax_t cleanup(const std::filesystem::path& temporyPath);
 
 private:
-    static ResourceManager* m_instance;
+    static resource_manager* m_instance;
+
+    std::filesystem::path _temporyPath;
 };

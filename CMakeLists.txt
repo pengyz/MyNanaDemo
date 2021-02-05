@@ -39,7 +39,8 @@ elseif(OS_LINUX)
   MESSAGE("platform linux not supported !")
 endif()
 
-find_package(unofficial-nana REQUIRED)
+find_package(unofficial-nana CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 file(GLOB_RECURSE _SRC_FILES "src/*.cpp")
 source_group("Header Files" FILES ${_SRC_FILES})
@@ -58,6 +59,7 @@ add_executable(${PROJECT_NAME} WIN32
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
   unofficial::nana::nana
+  fmt::fmt-header-only
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
